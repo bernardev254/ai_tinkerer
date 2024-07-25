@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signature Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Email Signature Extractor</h1>
+        <form action="/extract_signature" method="post">
+            <label for="email_content">Email Content:</label>
+            <textarea id="email_content" name="email_content" rows="10" cols="50">{{ email_content if email_content else '' }}</textarea>
+
+            <label for="model">Choose a Model:</label>
+            <select id="model" name="model">
+                <option value="openai" {% if model == 'openai' %}selected{% endif %}>OpenAI GPT-3.5 turbo</option>
+                <option value="claude" {% if model == 'claude' %}selected{% endif %}>Anthropic Claude 2</option>
+            </select>
+
+            <button type="submit">Extract Signature</button>
+        </form>
+
+        {% if result %}
+        <h2>Extracted Signature</h2>
+        <pre>{{ result }}</pre>
+        {% endif %}
+    </div>
+</body>
+</html>
+
